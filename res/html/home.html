@@ -1,0 +1,55 @@
+<div class="logined full">
+    <div class="blur"></div>
+    <div class="user-info">
+        <span class="avatar">
+                <img class="h100" ng-src="{{userInfo.avatar}}">
+                <span class="user-name">{{userInfo.username}}</span>
+        </span>
+        <span class="avatar-score">
+                <img class="h100" src="./res/assets/bean.png">
+                <span class="score-num">{{userInfo.score}}</span>
+        </span>
+    </div>
+    <div class="user-main">
+        <div class="main-playways">
+            <span class="pos-left position">
+            	<div class="pos-left-center" ng-click="makeRoom()">好友拼桌</div>
+            </span>
+            <span class="pos-middle position"></span>
+            <span class="pos-right position">
+                <div class="pos-right-top" ng-click="joinRoom()">加入房间</div>
+                <div class="pos-right-bottom" ng-click="speedAuto()">天梯排位</div>
+            </span>
+        </div>
+    </div>
+    <div class="user-operation">
+        <span class="operation-bg">
+            </span>
+        <span class="operations">
+                <span>
+                    <svg class="icon" aria-hidden="true">
+                      <use xlink:href="#icon-jiangbei"></use>
+                    </svg>
+                    战绩
+                </span>
+        <span>
+                    <svg class="icon" aria-hidden="true">
+                      <use xlink:href="#icon-shezhi1"></use>
+                    </svg>
+                    设置
+                </span>
+        <span>
+                    <svg class="icon" aria-hidden="true">
+                      <use xlink:href="#icon-youjianfuwu"></use>
+                    </svg>
+                    邮件
+                </span>
+        <span>
+                    <svg class="icon" aria-hidden="true">
+                      <use xlink:href="#icon-huodong"></use>
+                    </svg>
+                    活动
+                </span>
+        </span>
+    </div>
+</div>

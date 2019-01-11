@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Socket.IO Example</title>
+    <link rel="stylesheet" type="text/css" href="./res/css/mainscene.css">
+    <script src="./lib/jquery.min.js"></script>
+    <script src="./res/iconfont.js"></script>
+    <script src="./lib/angular.js"></script>
+    <script src="./lib/angular-route.js"></script>
+    <script src="./socket.io/socket.io.js"></script>
+    <style type="text/css">
+        .icon {
+           width: 1em; height: 1em;
+           vertical-align: -0.15em;
+           fill: currentColor;
+           overflow: hidden;
+           font-size: 30px;
+            vertical-align: text-bottom;
+        }
+        body{margin: 0; border: 1px solid #bbbbbb; width: 720px; height: 405px}
+        .full{width: 100%;height: 100%;}
+        .w100{width: 100%!important;}
+        .h100{height: 100%!important;}
+ 
+    </style>
+</head>
+
+<body ng-app="doudizhu" ng-controller="appCtrl">
+    <div class="login full" ng-if="!logined">
+        <button ng-click="wxlogin()">微信登录</button>
+        <button ng-click="login()">游客登录</button>
+    </div>
+    <div class="logined full" ng-if="!!logined">
+        <div class="blur"></div>
+        <div class="user-info">
+            <span class="avatar">
+                <img class="h100" ng-src="{{userInfo.avatar}}">
+                <span class="user-name">{{userInfo.username}}</span>
+            </span>
+            <span class="avatar-score">
+                <img class="h100" src="./res/assets/bean.png">
+                <span class="score-num">{{userInfo.score}}</span>
+            </span>
+        </div>
+        <div class="user-main">
+            <div class="main-playways">
+                <span class="pos-left position"></span>
+                <span class="pos-middle position"></span>
+                <span class="pos-right position">
+                    <div class="pos-right-top"></div>
+                    <div class="pos-right-bottom"></div>
+                </span>
+            </div>
+        </div>
+        <div class="user-operation">
+            <span class="operation-bg">
+            </span>
+            <span class="operations">
+                <span>
+                    <svg class="icon" aria-hidden="true">
+                      <use xlink:href="#icon-jiangbei"></use>
+                    </svg>
+                    战绩
+                </span>
+                <span>
+                    <svg class="icon" aria-hidden="true">
+                      <use xlink:href="#icon-shezhi1"></use>
+                    </svg>
+                    设置
+                </span>
+                <span>
+                    <svg class="icon" aria-hidden="true">
+                      <use xlink:href="#icon-youjianfuwu"></use>
+                    </svg>
+                    邮件
+                </span>
+                <span>
+                    <svg class="icon" aria-hidden="true">
+                      <use xlink:href="#icon-huodong"></use>
+                    </svg>
+                    活动
+                </span>
+            </span>
+        </div>
+    </div>
+    <p id="count"></p>
+    <button onclick="createRoom()">创建房间</button>
+    <input id="roomNum" type="text" name="">
+    <button onclick="joinRoom()">加入房间</button>
+    <button onclick="leaveRoom()">离开房间</button>
+    <button onclick="switchReady()">准备</button>
+    <button onclick="callLandlord()">叫/抢</button>
+    <button onclick="nocallLandlord()">不抢</button>
+    <div id="msg">
+    </div>
+    <!-- <script src="./game.js"></script> -->
+    <script>
+    var socket = null;
+    var current = new Date().getTime();
+    var userInfo = {
+        username: "user" + current,
+        userid: current,
+        isReadyToPlay: false,
+        userip: "192.168.20.2"
+    }
+    var currentRoom = null;
+    var newLog = function(str) {
+        $('#msg').append('<p>' + str + '</p>');
+    }
+    socket = io.connect('http://' + window.location.host);
+    socket.on('disconnect', function(a, b, c) {
+        socket = null;
+        socket = io.connect('http://' + window.location.host);
+    });
+    socket.on('roomerror', function(errorMsg, errorCode) {
+        newLog(errorMsg)
+    });
+    newLog("当前用户:" + userInfo.username);
+
+    
+    var createRoom = function() { //创建房间
+        socket.emit('createroom', userInfo);
+    }
+    var joinRoom = function() { //创建房间
+        var roomid = document.getElementById("roomNum").value;
+        if (!!roomid && roomid != "") {
+            if (("room " + roomid) == currentRoom) {
+                newLog("已经在该房间了");
+            } else {
+                socket.emit('joinroom', userInfo, "room " + roomid);
+            }
+        } else {
+            newLog("房间号为空，不能加入");
+        }
+    }
+    var leaveRoom = function() {
+        socket.emit('leaveroom');
+    }
+    var switchReady = function() {
+        userInfo.isReadyToPlay = !userInfo.isReadyToPlay;
+        socket.emit('readytoplay', userInfo);
+    }
+    var callLandlord = function() {
+        socket.emit('calllandlord', true);
+    }
+    var nocallLandlord = function() {
+        socket.emit('calllandlord', false);
+    }
+    //angularjs 模块
+    var app = angular.module('doudizhu', []);
+    //app模块
+    app.controller('appCtrl', function($scope) {
+        $scope.userInfo = {};
+        $scope.logined = false;//true;//
+        $scope.userInfo.avatar = "./res/assets/user.png";
+        $scope.login = function() { //用户登录
+            socket.on('logined', function(data) {
+                $scope.userInfo = userInfo;//游客
+                $scope.userInfo.avatar = "./res/assets/user.png";
+                $scope.loginedUserNum = data;
+                $scope.logined = true;
+                $scope.$apply();
+            });
+            socket.emit('login', userInfo);
+            socket.on('roomin', function(user, roomUser, roomId) {
+                if (user.userid == userInfo.userid) {
+                    newLog("进入了房间" + roomId)
+                    currentRoom = roomId;
+                } else {
+                    newLog("用户" + user.username + "进入了房间" + roomId)
+                }
+                roomUser.forEach(function(player, i) {
+                    if (userInfo.userid == player.userid) {
+                        newLog("自己准备好的状态是" + player.isReadyToPlay)
+                    } else {
+                        newLog(player.username + "准备好的状态是" + player.isReadyToPlay)
+                    }
+                });
+            });
+            socket.on('roomleaved', function(user, roomUser, roomId) {
+                if (user.userid == userInfo.userid) {
+                    newLog("离开了房间" + roomId)
+                    currentRoom = null;
+                    userInfo.isReadyToPlay = false;
+                } else {
+                    newLog("用户" + user.username + "离开了房间" + roomId)
+                }
+            });
+            socket.on('beready', function(user, roomUser) {
+                if (!!user.isReadyToPlay) {
+                    newLog(user.username + "准备好了");
+                } else {
+                    newLog(user.username + "取消准备了");
+                }
+            });
+            socket.on('gameinfo', function(cases, otherInfo) {
+                //通知消息为：1-游戏开始 2-发牌 3-抢地主 4-打牌 5-结束 0-更新分数,地主等相关信息
+                switch (cases) {
+                    case 0:
+                        otherInfo.forEach(function(player, i) {
+                            if (!!player.isLandLoader) {
+                                newLog(player.username + "是地主");
+                            }
+                        });
+                        break;
+                    case 1:
+                        newLog("游戏开始");
+                        break;
+                    case 2:
+                        newLog("游戏发牌");
+                        break;
+                    case 3:
+                        otherInfo.forEach(function(player, i) {
+                            if (!!player.ReadyToCall && player.userid == userInfo.userid) {
+                                newLog("轮到自己抢地主了");
+                            }
+                        });
+                        break;
+                    case 4:
+                        newLog("打牌");
+                        break;
+                    case 5:
+                        newLog("结束");
+                        break;
+                    case 6:
+                        newLog("游戏底分：" + otherInfo.score + ", 倍数：" + otherInfo.rate);
+                        break;
+                }
+            });
+            socket.on('dealcards', function(cards) {
+                newLog("发到牌啦");
+                newLog(JSON.stringify(cards));
+            });
+            socket.on('finish', function() {
+                userInfo.isReadyToPlay = false;
+            });
+        }
+    });
+    </script>
+</body>
+
+
+</html>

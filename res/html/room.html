@@ -1,0 +1,208 @@
+<div class="roomed full">
+    <div class="blur"></div>
+    <div class="h100 w100 tc">
+        <!-- 打牌背景 -->
+        <div class="play-bg"></div>
+        <!-- 地主牌区 -->
+        <div class="landloader-card-area" ng-if="!!canplay">
+            <li class="card-container" ng-repeat="card in landloadcards">
+                <span class="card">
+                    <span class="left-top-area">
+                        <img ng-if="card.cardValue*1<16" class="value" ng-src="{{'./res/assets/poker/'+card.cardValue+'_'+card.cardType+'.png'}}" >
+                        <img class="joker" ng-if="card.cardValue*1==1000" class="value" ng-src="{{'./res/assets/poker/joker_d.png'}}" >
+                        <img class="joker" ng-if="card.cardValue*1==999" class="value" ng-src="{{'./res/assets/poker/joker_s.png'}}" >
+                        <img ng-if="card.cardValue*1<16" class="type" ng-src="{{'./res/assets/poker/'+card.cardType+'.png'}}" >
+                    </span>
+                    <span class="right-bottom-area">
+                        <img ng-if="card.cardValue*1<16" class="value" ng-src="{{'./res/assets/poker/'+card.cardValue+'_'+card.cardType+'.png'}}" >
+                        <img class="joker" ng-if="card.cardValue*1==1000" class="value" ng-src="{{'./res/assets/poker/joker_d.png'}}" >
+                        <img class="joker" ng-if="card.cardValue*1==999" class="value" ng-src="{{'./res/assets/poker/joker_s.png'}}" >
+                        <img ng-if="card.cardValue*1<16" class="type" ng-src="{{'./res/assets/poker/'+card.cardType+'.png'}}" >
+                    </span>
+                </span>
+            </li>
+        </div>
+        <div class="others-part">
+            <span class="left-player player" ng-if="!!prevUser">
+                <!-- 上家身份 -->
+                <span ng-if="canPlayPokers" class="{{prevRole}}">{{prevRole.indexOf('farmer')>0?'农民':'地主'}}</span>
+                <!-- 上家 -->
+                <span class="left-player-info">
+                    <div class="shine-line"></div>
+                    <span class="avatar">
+                        <!-- 上家头像 -->
+                        <img avator class="h100 w100" src="" ng-src="{{prevUser.avatar}}">
+                    </span>
+                    <span class="info">
+                        <!-- 上家用户名 -->
+                        <span class="w100 name">{{prevUser.username}}</span>
+                        <span class="w100 score">
+                            <img src="./res/assets/bean.png">
+                            <!-- 上家欢乐豆 -->
+                            <span>88.888万</span>
+                        </span>
+                    </span>
+                    <div class="shine-line"></div>
+                </span>
+                <!-- 上家牌 -->
+                <ul class="left-player-cards">
+                    <li ng-if="canplay" class="card" ng-repeat="card in prevcards" style="z-index: {{$index+2}}">
+                        <span class="cards-num" ng-if="($index+1)==prevcards.length">{{$index+1}}</span>
+                    </li>
+                    <span class="is-ready" ng-if="!canplay&&!!prevUser.isReadyToPlay">准备</span>
+                </ul>
+                <!-- 上家操作计时 -->
+                <span class="timmer" ng-if="eventTimeLimitLeft>=0">
+                    {{eventTimeLimitLeft}}
+                </span>
+                <span class="card-prev card-area" ng-if="eventTimeLimitLeft<0">
+                    <li ng-if="prevlastoutCards.length>0" class="card-container" ng-repeat="card in prevlastoutCards">
+                        <span class="card">
+                            <span class="left-top-area">
+                                <img ng-if="card.cardValue*1<16" class="value" ng-src="{{'./res/assets/poker/'+card.cardValue+'_'+card.cardType+'.png'}}" >
+                                <img class="joker" ng-if="card.cardValue*1==1000" class="value" ng-src="{{'./res/assets/poker/joker_d.png'}}" >
+                                <img class="joker" ng-if="card.cardValue*1==999" class="value" ng-src="{{'./res/assets/poker/joker_s.png'}}" >
+                                <img ng-if="card.cardValue*1<16" class="type" ng-src="{{'./res/assets/poker/'+card.cardType+'.png'}}" >
+                            </span>
+                            <span class="right-bottom-area">
+                                <img ng-if="card.cardValue*1<16" class="value" ng-src="{{'./res/assets/poker/'+card.cardValue+'_'+card.cardType+'.png'}}" >
+                                <img class="joker" ng-if="card.cardValue*1==1000" class="value" ng-src="{{'./res/assets/poker/joker_d.png'}}" >
+                                <img class="joker" ng-if="card.cardValue*1==999" class="value" ng-src="{{'./res/assets/poker/joker_s.png'}}" >
+                                <img ng-if="card.cardValue*1<16" class="type" ng-src="{{'./res/assets/poker/'+card.cardType+'.png'}}" >
+                            </span>
+                        </span>
+                    </li>
+                    <p ng-if="prevSkip">{{skipTextPrev}}</p>
+                </span>
+            </span>
+            <span class="right-player player" ng-if="!!nextUser">
+                <!-- 下家身份 -->
+                <span  ng-if="canPlayPokers" class="{{nextRole}}">{{nextRole.indexOf('farmer')>0?'农民':'地主'}}</span>
+                <!-- 下家 -->
+                <span class="right-player-info">
+                    <div class="shine-line"></div>
+                    <span class="avatar">
+                        <!-- 下家头像 -->
+                        <img avator class="h100 w100" src="" ng-src="{{nextUser.avatar}}">
+                    </span>
+                    <span class="info">
+                        <!-- 下家用户名 -->
+                        <span class="w100 name">{{nextUser.username}}</span>
+                        <span class="w100 score">
+                            <!-- 下家欢乐豆 -->
+                            <span>88.888万</span>
+                            <img src="./res/assets/bean.png">
+                        </span>
+                    </span>
+                    <div class="shine-line"></div>
+                </span>
+                <!-- 下家牌 -->
+                <ul class="right-player-cards">
+                    <li ng-if="canplay" class="card" ng-repeat="card in nextcards" style="z-index: {{$index+2}}">
+                        <span class="cards-num" ng-if="($index+1)==nextcards.length">{{$index+1}}</span>
+                    </li>
+                    <span class="is-ready" ng-if="!canplay&&!!nextUser.isReadyToPlay">准备</span>
+                </ul>
+                <!-- 下家操作计时 -->
+                <span class="timmer" ng-if="eventTimeLimitRight>=0">
+                    {{eventTimeLimitRight}}
+                </span>
+                <span class="card-next card-area" ng-if="eventTimeLimitRight<0">
+                    <li ng-if="nextlastoutCards.length>0" class="card-container" ng-repeat="card in nextlastoutCards">
+                        <span class="card">
+                            <span class="left-top-area">
+                                <img ng-if="card.cardValue*1<16" class="value" ng-src="{{'./res/assets/poker/'+card.cardValue+'_'+card.cardType+'.png'}}" >
+                                <img class="joker" ng-if="card.cardValue*1==1000" class="value" ng-src="{{'./res/assets/poker/joker_d.png'}}" >
+                                <img class="joker" ng-if="card.cardValue*1==999" class="value" ng-src="{{'./res/assets/poker/joker_s.png'}}" >
+                                <img ng-if="card.cardValue*1<16" class="type" ng-src="{{'./res/assets/poker/'+card.cardType+'.png'}}" >
+                            </span>
+                            <span class="right-bottom-area">
+                                <img ng-if="card.cardValue*1<16" class="value" ng-src="{{'./res/assets/poker/'+card.cardValue+'_'+card.cardType+'.png'}}" >
+                                <img class="joker" ng-if="card.cardValue*1==1000" class="value" ng-src="{{'./res/assets/poker/joker_d.png'}}" >
+                                <img class="joker" ng-if="card.cardValue*1==999" class="value" ng-src="{{'./res/assets/poker/joker_s.png'}}" >
+                                <img ng-if="card.cardValue*1<16" class="type" ng-src="{{'./res/assets/poker/'+card.cardType+'.png'}}" >
+                            </span>
+                        </span>
+                    </li>
+                    <p ng-if="nextSkip">{{skipTextNext}}</p>
+                </span>
+            </span>
+        </div>
+        <!-- 自己区 -->
+        <div class="self-part">
+            <!-- 本局的倍数啊 欢乐豆啊等等 -->
+            <div class="self-game-info">
+                <!-- 自己的信息 -->
+                <span class="left-self-info">
+                    <span class="avatar">
+                        <img avator src="" ng-src="{{userInfo.avatar}}">
+                    </span>
+                    <span class="name">{{userInfo.username}}</span>
+                </span>
+                <!-- 对局期间自己的欢乐豆，倍数等信息 -->
+                <span class="middle-game-info">
+                    
+                </span>
+                <!-- 对话信息 -->
+                <span class="right-im-info">
+                    <span class="im-tools"></span>
+                </span>
+            </div>
+            <!-- 本局的牌 -->
+            <ul id="selfcard" class="self-game-card">
+                <li class="card-container" ng-if="canplay" ng-repeat="card in cards" style="z-index: {{$index+2}}">
+                    <span id="{{card.cardValue+card.cardType}}" ng-click="switchCardsStatus($event,card)" class="card">
+                        <span class="left-top-area">
+                            <img ng-click="switchCardsStatus($event,card)" ng-if="card.cardValue*1<16" class="value" ng-src="{{'./res/assets/poker/'+card.cardValue+'_'+card.cardType+'.png'}}" >
+                            <img ng-click="switchCardsStatus($event,card)" class="joker" ng-if="card.cardValue*1==1000" class="value" ng-src="{{'./res/assets/poker/joker_d.png'}}" >
+                            <img ng-click="switchCardsStatus($event,card)" class="joker" ng-if="card.cardValue*1==999" class="value" ng-src="{{'./res/assets/poker/joker_s.png'}}" >
+                            <img ng-click="switchCardsStatus($event,card)" ng-if="card.cardValue*1<16" class="type" ng-src="{{'./res/assets/poker/'+card.cardType+'.png'}}" >
+                        </span>
+                        <span ng-click="switchCardsStatus($event,card)" class="right-bottom-area">
+                            <img ng-click="switchCardsStatus($event,card)" ng-if="card.cardValue*1<16" class="value" ng-src="{{'./res/assets/poker/'+card.cardValue+'_'+card.cardType+'.png'}}" >
+                            <img ng-click="switchCardsStatus($event,card)" class="joker" ng-if="card.cardValue*1==1000" class="value" ng-src="{{'./res/assets/poker/joker_d.png'}}" >
+                            <img ng-click="switchCardsStatus($event,card)" class="joker" ng-if="card.cardValue*1==999" class="value" ng-src="{{'./res/assets/poker/joker_s.png'}}" >
+                            <img ng-click="switchCardsStatus($event,card)" ng-if="card.cardValue*1<16" class="type" ng-src="{{'./res/assets/poker/'+card.cardType+'.png'}}" >
+                        </span>
+                    </span>
+                </li>
+                <button ng-if="!canplay" ng-click="switchReady()">{{userInfo.isReadyToPlay?'取消准备':'准备'}}</button>
+            </ul>
+            <!-- 叫地主操作以及准备 -->
+            <div class="call-landloader operations" ng-if="canplay">
+                <p class="tc" style="margin:0" ng-if="eventTimeLimit>=0">{{eventTimeLimit}}</p>
+                <p ng-if="canCallLandloader">
+                    <button ng-click="callLandlord(true)">{{operationText+textInUse.calllandloader}}</button>
+                    <button ng-click="callLandlord(false)">{{textInUse.notcalllandloader+operationText}}</button>
+                </p>
+                <p ng-if="selfSkip">{{skipTextSelf}}</p>
+            </div>
+            <!-- 玩的操作：出牌 过、提示 -->
+            <div class="play-operation operations" ng-if="canPlayPokers">
+                <button ng-if="myturn" ng-click="outCards()">出牌</button>
+                <button ng-if="myturn && againstCardType!=0" ng-click="skipOver()">要不起</button>
+                <button ng-if="myturn && againstCardType!=0" ng-click="tip()">提示</button>
+                <li ng-if="selflastoutCards.length>0" class="card-container" ng-repeat="card in selflastoutCards">
+                    <span class="card">
+                        <span class="left-top-area">
+                            <img ng-if="card.cardValue*1<16" class="value" ng-src="{{'./res/assets/poker/'+card.cardValue+'_'+card.cardType+'.png'}}" >
+                            <img class="joker" ng-if="card.cardValue*1==1000" class="value" ng-src="{{'./res/assets/poker/joker_d.png'}}" >
+                            <img class="joker" ng-if="card.cardValue*1==999" class="value" ng-src="{{'./res/assets/poker/joker_s.png'}}" >
+                            <img ng-if="card.cardValue*1<16" class="type" ng-src="{{'./res/assets/poker/'+card.cardType+'.png'}}" >
+                        </span>
+                        <span class="right-bottom-area">
+                            <img ng-if="card.cardValue*1<16" class="value" ng-src="{{'./res/assets/poker/'+card.cardValue+'_'+card.cardType+'.png'}}" >
+                            <img class="joker" ng-if="card.cardValue*1==1000" class="value" ng-src="{{'./res/assets/poker/joker_d.png'}}" >
+                            <img class="joker" ng-if="card.cardValue*1==999" class="value" ng-src="{{'./res/assets/poker/joker_s.png'}}" >
+                            <img ng-if="card.cardValue*1<16" class="type" ng-src="{{'./res/assets/poker/'+card.cardType+'.png'}}" >
+                        </span>
+                    </span>
+                </li>
+            </div>
+            <!-- 自己身份 -->
+            <span class="{{selfRole}}" ng-if="canPlayPokers" >{{selfRole.indexOf('farmer')>0?'农民':'地主'}}</span>
+        </div>
+        <!-- 返回 -->
+        <div ng-click="leave()" class="history-back"></div>
+    </div>
+</div>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>demo</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="full-screen" content="true" />
+    <meta name="x5-orientation" content="landscape" />
+    <meta name="screen-orientation" content="landscape" />
+    <meta name="x5-fullscreen" content="true" />
+    <meta name="360-fullscreen" content="true" />
+    <meta name="browsermode" content="application" />
+    <link rel="stylesheet" type="text/css" href="./res/css/mainscene.css">
+    <script src="./lib/jquery.min.js"></script>
+    <script src="./res/iconfont.js"></script>
+    <script src="./lib/angular.js"></script>
+    <script src="./lib/angular-ui-router.js"></script>
+    <script src="./lib/angular-touch.js"></script>
+    <script src="./lib/socket.io.js"></script>
+    <script src="./lib/layer/layer.js"></script>
+    <script src="./lib/log/log_inline.js"></script>
+    <style type="text/css">
+    .icon {
+        width: 1em;
+        height: 1em;
+        vertical-align: -0.15em;
+        fill: currentColor;
+        overflow: hidden;
+        font-size: 30px;
+        vertical-align: text-bottom;
+    }
+
+    body {
+        margin: 0;
+    }
+
+    .full {
+        width: 100%;
+        height: 100%;
+        position: relative;
+    }
+
+    .app-main {
+        z-index: 1
+    }
+
+    .notice {
+        top: 0;
+        right: 0;
+        width: 40%;
+        height: auto;
+        position: absolute;
+        z-index: 2;
+    }
+
+    .w100 {
+        width: 100% !important;
+    }
+
+    .h100 {
+        height: 100% !important;
+    }
+
+    .tc {
+        text-align: center;
+    }
+    </style>
+</head>
+
+<body id="app" ng-app="doudizhu">
+    <!-- 主逻辑 -->
+    <div class="full app-main" ui-view></div>
+    <!-- 公告 通知 -->
+    <marquee scrolldelay="100" class="notice">
+        恭喜用户xxx,在巅峰赛中勇夺冠军！
+    </marquee>
+    <script type="text/javascript">
+    // 利用 CSS3 旋转 对根容器逆时针旋转 90 度
+    var detectOrient = function() {
+        var width = document.documentElement.clientWidth,
+            height = document.documentElement.clientHeight,
+            $app = document.getElementById("app"),
+            style = "";
+        if (width >= height) { // 横屏
+            style += "width:" + width + "px;"; // 注意旋转后的宽高切换
+            style += "height:" + height + "px;";
+            style += "-webkit-transform: rotate(0); transform: rotate(0);";
+            style += "-webkit-transform-origin: 0 0;";
+            style += "transform-origin: 0 0;";
+        } else { // 竖屏
+            style += "width:" + height + "px;";
+            style += "height:" + width + "px;";
+            style += "-webkit-transform: rotate(90deg); transform: rotate(90deg);";
+            // 注意旋转中点的处理
+            style += "-webkit-transform-origin: " + width / 2 + "px " + width / 2 + "px;";
+            style += "transform-origin: " + width / 2 + "px " + width / 2 + "px;";
+        }
+        $app.style.cssText = style;
+    }
+    window.onresize = detectOrient;
+    detectOrient();
+
+
+    var opt = {
+        'logExtJs': 'lib/log/log_ext.js',
+        'logExtCss': 'lib/log/log.css'
+    };
+    window.MLogger.init(opt);
+
+    window.user = 'self';
+    
+    var App = angular.module('doudizhu', ['ui.router', 'ngTouch']);
+    // 配置路由模块
+    App.config(function($stateProvider, $urlRouterProvider) {
+        //如果后面没有匹配的路由，那么将会跳转到$urlRouterProvider这儿设定的路径(也就是设置默认路径)，就和switch..case..中的default是一个道理
+        $urlRouterProvider.when('', '/login');
+        //第一行表示会在main.html页面第一个显示出来的页面
+        $stateProvider.state('login', {
+                url: '/login',
+                templateUrl: './res/html/login.html',
+                controller: 'loginCtrl'
+            })
+            .state('home', {
+                url: '/home',
+                params : {userInfo:''},
+                templateUrl: './res/html/home.html',
+                controller: 'homeCtrl'
+            })
+            .state('room', {
+                url: '/room',
+                params : {userInfo:''},
+                templateUrl: './res/html/room.html',
+                controller: 'roomCtrl'
+            })
+            .state('extra', {
+                url: '/extra',
+                templateUrl: './res/html/extra.html',
+                controller: 'extraCtrl'
+            })
+    });
+    App.run(['$rootScope','$state',function($rootScope,$state){
+        function connectServer(){
+            window.socket = null;
+            window.socket = io.connect('http://' + window.location.host);
+            window.socket.on('disconnect', function(a, b, c) {
+                $state.go('login');
+                window.socket.close();
+                connectServer();
+            });
+        }
+        connectServer();
+    }]);
+    // App.config(['$routeProvider', function($routeProvider) {
+    //     // AngularJS路由中的锚点一般以"#/"开头
+    //     $routeProvider.when('/login', {
+    //         templateUrl: './res/html/login.html', //登录模块
+    //         controller: 'loginCtrl' //指定视图的控制器
+    //     }).when('/home', { //第二个"/"后的内容表示锚点中的参数(:id表示形参)
+    //         templateUrl: './res/html/home.html', //主页模块
+    //         controller: 'homeCtrl' //指定视图的控制器(视图中的数据根据控制器动态生成。控制器可以接收锚点中的参数($routeParams))
+    //     }).when('/room', {
+    //         templateUrl: './res/html/room.html',
+    //         controller: 'roomCtrl' //指定视图的控制器
+    //     }).when('/contact', {
+    //         template: "<h3>Contact Pages</h3>"
+    //     }).when('/list', {
+    //         template: "<h3>Index Pages</h3>", //简单内容可以直接使用template。 用模板替换占位符
+    //         controller: 'ListController' //指定视图的控制器
+    //     }).otherwise({
+    //         redirectTo: '/login' //其他情况跳转到"/index"
+    //     });
+    // }]);
+    </script>
+    <script type="text/javascript" src="./lib/utils/factory.js"></script>
+    <script type="text/javascript" src="./res/js/loginCtrl.js"></script>
+    <script type="text/javascript" src="./res/js/homeCtrl.js"></script>
+    <script type="text/javascript" src="./res/js/roomCtrl.js"></script>
+</body>
+
+</html>

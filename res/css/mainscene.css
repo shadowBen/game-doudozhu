@@ -1,0 +1,965 @@
+*{
+    user-select:none;
+}
+:focue{
+    outline: none;
+}
+button{
+}
+marquee{
+    display: none
+}
+div.login {
+    background-size: cover;
+    background-position: center;
+    background-color: #ffffff;
+    background-image: url(../assets/aSceneBg_login.jpg);
+    text-align: center;
+}
+
+div.logined {
+    background-size: cover;
+    background-position: center;
+    background-color: #ffffff;
+    position: relative;
+    z-index: 0;
+}
+
+div.logined div.blur {
+    width: 100%;
+    height: 100%;
+    filter: blur(2px);
+    background-image: url(../assets/mainScreneBg3.jpg);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+div.logined div.user-info {
+    height: calc(100% / 9);
+    position: absolute;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0px -2px 3px rgba(255, 255, 255, 0.3) inset;
+    left: 0;
+    z-index: 2;
+    top: 0;
+    width: 100%;
+}
+
+div.logined div.user-info .avatar {
+    position: relative;
+    display: inline-block;
+    width: 20%;
+    height: calc(750% / 9);
+    margin: 0.41% 0 0 1%;
+    border-top-left-radius: calc(100% / 18) 20%;
+    border-bottom-left-radius: calc(100% / 18) 20%;
+    border-top-right-radius: calc(125% / 9) 50%;
+    border-bottom-right-radius: calc(125% / 9) 50%;
+    box-shadow: 1px -3px 10px rgba(255, 255, 255, 0.3) inset
+}
+
+div.logined div.user-info .avatar>img {
+    margin-left: calc(100% / 18);
+}
+
+div.logined div.user-info .avatar>.user-name {
+    position: absolute;
+    right: calc(100% / 12);
+    top: 0;
+    width: calc(50% + 125%/18);
+    white-space: nowrap;
+    height: 100%;
+    text-overflow: ellipsis;
+    line-height: 200%;
+    font-size: 18px;
+    overflow: hidden;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+div.logined span.avatar-score {
+    width: 14%;
+    height: 70%;
+    display: inline-block;
+    margin-left: 2%;
+    margin-top: calc(12% / 12);
+    border-top-left-radius: calc(100% / 7) 50%;
+    border-bottom-left-radius: calc(100% / 7) 50%;
+    border-top-right-radius: calc(100% / 7) 50%;
+    border-bottom-right-radius: calc(100% / 7) 50%;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+}
+
+div.logined span.avatar-score>img {
+    margin-left: calc(50% / 7);
+}
+
+div.logined span.avatar-score>.score-num {
+    width: 55%;
+    margin-top: 2%;
+    display: inline-block;
+    position: absolute;
+    right: calc(50% / 7);
+    text-align: center;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+div.logined div.user-main {
+    height: calc(556% / 9);
+    padding: calc(100% / 24) 0 0 0;
+    position: absolute;
+    z-index: 2;
+    top: calc(100% / 9);
+    left: 0;
+    width: 100%;
+}
+
+div.logined div.user-main>.main-playways {
+    width: 70%;
+    height: 94%;
+    margin: 0 auto;
+    /*background: white;*/
+    position: relative;
+}
+
+div.logined div.user-operation {
+    height: calc(150% / 9);
+    perspective: 150;
+    -webkit-perspective: 150;
+    text-align: center;
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+div.logined div.user-operation .operation-bg {
+    transform: rotateX(24deg);
+    border-radius: 10px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1));
+    height: 50%;
+    width: 76%;
+    display: inline-block;
+    margin-top: 3vh;
+}
+
+div.logined div.user-operation .operations {
+    background: transparent;
+    height: 50%;
+    width: 64%;
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 20%;
+    color: #e8e84f;
+    font-weight: 700;
+    font-size: 15px;
+}
+
+div.logined div.user-operation .operations>span {
+    width: calc(25% - 25px);
+    height: 100%;
+    display: inline-block;
+    text-align: center;
+}
+
+div.logined .position {
+    display: inline-block;
+    height: 100%;
+    position: absolute;
+}
+
+div.logined .pos-left {
+    width: 56%;
+    left: 0;
+    top: 0;
+    background: linear-gradient(274deg, transparent 5%, #B96036 calc(5% + 1px), #EDC471) bottom right;
+    /*background: linear-gradient(274deg, transparent 18px, #B96036 19px, #EDC471) bottom right;*/
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    border-radius: 10px 0 0 10px;
+    /*border-bottom-right-radius: 27px 81px;*/
+}
+
+div.logined .pos-middle {
+    width: 2%;
+    border: 1px solid #ccc;
+    top: 0;
+    left: 55%;
+    transform: rotateZ(3deg);
+    display: none;
+}
+
+div.logined .pos-right {
+    width: 46%;
+    top: 0;
+    right: 0;
+    background: transparent;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    border-radius: 10px;
+    border-top-left-radius: 27px 81px;
+    text-align: right;
+}
+
+div.logined .pos-right-top {
+    width: 96%;
+    height: 48%;
+    background: linear-gradient(94deg, transparent 5%, #499F63 calc(5% + 1px), #65D99B) top left;
+    /*background: linear-gradient(94deg, transparent 18px, #499F63 19px, #65D99B) top left;*/
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    border-radius: 0 10px 10px 0;
+    /*border-top-left-radius: 42px 72px;*/
+    /*border-bottom-left-radius: 26px 100px;*/
+    text-align: center;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+div.logined .pos-right-bottom {
+    width: 100%;
+    height: 48%;
+    margin-top: 4%;
+    background: linear-gradient(94deg, transparent 5%, #499F63 calc(5% + 1px), #65D99B) top left;
+    /*background: linear-gradient(94deg, transparent 10px, #7DCAEF 11px, #3975D6) top left;*/
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    border-radius: 0 10px 10px 0;
+    /*border-top-left-radius: 16px 64px;*/
+    text-align: center;
+    cursor: pointer;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+div.logined .pos-left-center{
+    height: 100%;
+    width: 85%;
+    margin-left: 5%;
+    text-align: center;
+    cursor: pointer;
+}
+div.roomed>div.tc{
+    position: relative;
+    z-index: 2;
+    perspective: 400;
+    -webkit-perspective: 400;
+}
+div.roomed div.blur {
+    width: 100%;
+    height: 100%;
+    filter: blur(0px);
+    background-image: url(../assets/mainScreneBg3.jpg);
+    background-color: black;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+div.roomed .landloader-card-area{
+    position: absolute;
+    width: 14%;
+    margin: 0 43% 0 43%;
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 5px;
+    height: calc(95% / 9);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    padding: 1% 0 0 0;
+    z-index: 2;
+}
+div.roomed .self-part{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 43%;
+    overflow: hidden;
+    z-index: 2;
+}
+div.roomed .self-part .self-game-info{
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    height: 20%;
+    border-top: 1px solid rgba(255,255,255,0.5);
+    background-color: rgba(255,255,255,0.4);
+}
+div.roomed .self-part .self-game-info>span{
+    display: inline-block;
+}
+div.roomed .self-part .self-game-card{
+    position: absolute;
+    width: 60%;
+    bottom: 23.5%;
+    left: 20%;
+    height: 44%;
+    border: 1px solid rgba(255,255,255,0.5);
+    text-align: center;
+}
+
+div.roomed .card{
+    border-radius: 5px;
+    background-color: white;
+    display: inline-block;
+    border: 1px solid #ddd;
+}
+div.roomed .landloader-card-area .card-container{
+    width: 28%;
+    height: 90%;
+    margin: 0 2%;
+}
+div.roomed .landloader-card-area .card-container .card{
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+div.roomed .landloader-card-area .card-container .card .left-top-area{
+    width: 36%;
+    height: 100%;
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+div.roomed .landloader-card-area .card-container .card .right-bottom-area{
+    width: 36%;
+    height: 100%;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    transform: rotateX(180deg);
+}
+div.roomed .landloader-card-area .card-container .card .joker{
+    height: 85%;
+    margin: 0% 0 0 16%;
+}
+div.roomed .landloader-card-area .card-container .card .left-top-area>.value{
+    width: 100%;
+    display: inherit;
+}
+div.roomed .landloader-card-area .card-container .card .left-top-area>.type{
+    width: 90%;
+    display: inherit;
+    margin-top: 5%;
+    margin-left: 10%;
+}
+div.roomed .landloader-card-area .card-container .card .right-bottom-area>.value{
+    width: 100%;
+    display: inherit;
+}
+div.roomed .landloader-card-area .card-container .card .right-bottom-area>.type{
+    width: 90%;
+    display: inherit;
+    margin: 5% 0 0 0;
+}
+
+div.roomed .self-part .self-game-card .card-container{
+    width: 10.6%;
+    height: 100%;
+    position: relative;
+}
+div.roomed .self-part .self-game-card .card-container>.card{
+    width: 100%;
+    height: 90%;
+    text-align: left;
+    position: absolute;
+    top: 10%;
+    left: 0;
+}
+
+div.roomed .self-part .self-game-card .card-container>.card .joker{
+    width: 56%;
+    margin: 2% 0 0 10%;
+}
+div.roomed .self-part .self-game-card .card-container>.card .left-top-area{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 35%;
+    display: inline-block;
+    margin-left: 1%;
+    margin-top: 3%;
+}
+div.roomed .self-part .self-game-card .card-container>.card .left-top-area>.value{
+    width: 100%;
+    position: relative;
+    display: inherit;
+}
+div.roomed .self-part .self-game-card .card-container>.card .left-top-area>.type{
+    width: 90%;
+    display: inherit;
+    margin-top: 5%;
+    margin-left: 5%;
+}
+div.roomed .self-part .self-game-card .card-container>.card .right-bottom-area{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 35%;
+    display: inline-block;
+    margin-left: 1%;
+    margin-top: 3%;
+    transform: rotateX(180deg);
+}
+div.roomed .self-part .self-game-card .card-container>.card .right-bottom-area>.value{
+    width: 100%;
+    display: inherit;
+}
+div.roomed .self-part .self-game-card .card-container>.card .right-bottom-area>.type{
+    width: 90%;
+    display: inherit;
+    margin-top: 5%;
+    margin-left: 5%;
+}
+div.roomed .self-part .self-game-card .card-container:not(:first-child){
+    margin-left: calc(-6%)!important;
+}
+div.roomed ul,div.roomed li{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+}
+div.roomed .self-part .operations{
+    position: absolute;
+    width: 60%;
+    bottom: 68.5%;
+    left: 20%;
+    height: 30%;
+    border: 1px solid rgba(255,255,255,0.5);
+    text-align: center;
+}
+div.roomed .others-part{
+    position: absolute;
+    width: 100%;
+    bottom: 43%;
+    left: 0;
+    height: calc(54% - 95%/9);
+    z-index: 2;
+}
+div.roomed .others-part span{
+    display: inline-block;
+}
+div.roomed .others-part>.player{
+    display: inline-block;
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    bottom: 0;
+}
+div.roomed .others-part>.player .shine-line{
+    height: 1px;
+    width: 75%;
+    position: absolute;
+    background: -webkit-radial-gradient(rgba(255, 255, 0, 0.9), rgba(255, 255, 0, 0.3), rgba(255, 255, 0, 0.05));
+    background: -o-radial-gradient(rgba(255, 255, 0, 0.9), rgba(255, 255, 0, 0.3), rgba(255, 255, 0, 0.05));
+    background: -moz-radial-gradient(rgba(255, 255, 0, 0.9), rgba(255, 255, 0, 0.3), rgba(255, 255, 0, 0.05));
+    background: radial-gradient(rgba(255, 255, 0, 0.9), rgba(255, 255, 0, 0.3), rgba(255, 255, 0, 0.05));
+    }
+div.roomed .others-part>.left-player .shine-line{
+    left: 15%;
+}
+div.roomed .others-part>.right-player .shine-line{
+    right: 15%;
+}
+div.roomed .others-part>.player .shine-line:first-child{
+    top: -10%;
+}
+div.roomed .others-part>.player .shine-line:last-child{
+    bottom: -10%;
+}
+div.roomed .others-part>.left-player{
+    left: 0;
+}
+div.roomed .others-part>.left-player .left-player-info{
+    width: 40%;
+    height: 20%;
+    position: absolute;
+    left: 0;
+    top: 20%;
+    background-color: transparent;
+    border-width: 0;
+}
+div.roomed .others-part>.left-player .left-player-info>.avatar{
+    width: 30%;
+    height: 115%;
+    position: absolute;
+    left: 0;
+    top: -10%;
+    text-align: center;
+}
+div.roomed .others-part>.left-player .left-player-info>.avatar>img{
+    border-radius: 50%;
+}
+div.roomed .others-part>.left-player .left-player-info>.info{
+    width: 70%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    text-align: center;
+    right: 0;
+}
+div.roomed .others-part>.left-player .left-player-info>.info>.name{
+    height: 50%;
+    overflow: hidden;
+    font-size: 12px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    text-align: left;
+    color: white;
+}
+div.roomed .others-part>.left-player .left-player-info>.info>.score{
+    height: 50%;
+    overflow: hidden;
+    font-size: 12px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    text-align: left;
+}
+div.roomed .others-part>.left-player .left-player-info>.info>.score>img{
+    height: 90%;
+    vertical-align: text-bottom;
+    position: absolute;
+}
+div.roomed .others-part>.left-player .left-player-info>.info>.score>span{
+    width: 78%;
+    position: absolute;
+    right: 0;
+    color: orange;
+}
+
+div.roomed .others-part>.right-player{
+    right: 0;
+}
+div.roomed .others-part>.right-player .right-player-info{
+    width: 40%;
+    height: 20%;
+    position: absolute;
+    right: 0;
+    top: 20%;
+    background-color: transparent;
+    border-width: 0;
+}
+@media screen and (min-width: 737px) {
+    div.roomed .others-part>.left-player .left-player-info{
+        height: 25%;
+    }
+    div.roomed .others-part>.right-player .right-player-info{
+        height: 25%;
+    }
+}
+
+div.roomed .others-part>.right-player .right-player-info>.avatar{
+    width: 30%;
+    height: 115%;
+    position: absolute;
+    right: 0;
+    top: -10%;
+    text-align: center;
+}
+div.roomed .others-part>.right-player .right-player-info>.avatar>img{
+    border-radius: 50%;
+}
+div.roomed .others-part>.right-player .right-player-info>.info{
+    width: 70%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    text-align: center;
+}
+div.roomed .others-part>.right-player .right-player-info>.info>.name{
+    height: 50%;
+    overflow: hidden;
+    font-size: 12px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: right;
+    color: white;
+}
+div.roomed .others-part>.right-player .right-player-info>.info>.score{
+    height: 50%;
+    overflow: hidden;
+    font-size: 12px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    text-align: left;
+}
+div.roomed .others-part>.right-player .right-player-info>.info>.score>img{
+    height: 90%;
+    vertical-align: text-bottom;
+    position: absolute;
+    right: 55%;
+}
+div.roomed .others-part>.right-player .right-player-info>.info>.score>span{
+    width: 78%;
+    position: absolute;
+    right: 0;
+    color: orange;
+    text-align: right;
+}
+div.roomed .self-part .self-game-info>span.left-self-info{
+    width: 20%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+div.roomed .self-part .self-game-info>span.left-self-info .avatar{
+    width: 36%;
+    height: 148%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 2;
+    /*text-align: center;*/
+}
+div.roomed .self-part .self-game-info>span.left-self-info .avatar>img{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+div.roomed .self-part .self-game-info>span.left-self-info .name{
+    width: 60%;
+    height: 75%;
+    display: inline-block;
+    position: absolute;
+    bottom: 0;
+    left: 16%;
+    z-index: 1;
+    border-top-right-radius: 12% 50%;
+    border-bottom-right-radius: 12% 50%;
+    font-size: 12px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: rgba(255, 255, 255, 0.75);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 0 0 13%;
+    text-align: center;
+    line-height: 200%;
+}
+div.roomed .self-part .self-game-info>span.middle-game-info{
+    width: 60%;
+    height: 100%;
+    margin: 0 auto;
+}
+div.roomed .self-part .self-game-info>span.right-im-info{
+    width: 20%;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    text-align: right;
+}
+div.roomed .self-part .self-game-info>span.right-im-info .im-tools{
+    width: 75%;
+    height: 75%;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    text-align: right;
+    border-top-left-radius: 11% 50%;
+    border-bottom-left-radius: 11% 50%;
+    background: linear-gradient(#fdf5d6, orange) bottom right;
+}
+div.roomed .play-bg{
+    background-image: url(../assets/desktop.png);
+    height: 77%;
+    position: absolute;
+    left: 20%;
+    bottom: 9%;
+    width: 61%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    transform: rotateX(45deg);
+    z-index: 1;
+}
+div.roomed .left-player-cards{
+    width: 50%;
+    height: 25%;
+    border: 1px solid #ccc;
+    position: absolute;
+    bottom: 10%;
+    left: 28%;
+    transform: skewX(-26.5deg) rotateZ(90deg);
+}
+div.roomed .left-player-cards .card{
+    width: 18%;
+    height: 100%;
+    border: 1px solid #ccc;
+    bottom: 0;
+    background-color: chocolate;
+    position: relative;
+    text-align: center;
+}
+div.roomed .left-player-cards .card:not(:first-child) {
+    margin-left: calc(-17%)!important;
+}
+div.roomed .left-player-cards .card>span.cards-num{
+    position: absolute;
+    right: 0;
+    top: 0;
+    transform: rotateZ(270deg);
+}
+
+div.roomed .right-player-cards{
+    width: 50%;
+    height: 25%;
+    border: 1px solid #ccc;
+    position: absolute;
+    bottom: 10%;
+    right: 26%;
+    transform: skewX(27deg) rotateZ(90deg);
+}
+div.roomed .right-player-cards .card{
+    width: 18%;
+    height: 100%;
+    border: 1px solid #ccc;
+    bottom: 0;
+    background-color: chocolate;
+    position: relative;
+    text-align: center;
+}
+div.roomed .right-player-cards .card:not(:first-child) {
+    margin-left: calc(-17%)!important;
+    position: relative;
+}
+div.roomed .right-player-cards .card>span.cards-num{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    transform: rotateZ(270deg);
+}
+div.roomed .others-part span.is-ready{
+    transform: rotateZ(270deg);
+    position: absolute;
+    bottom: 25%;
+    left: 45%;
+    font-size: 14px;
+}
+
+div.roomed .self-part .role{
+    display: inline-block;
+    left: 0;
+    bottom: 20%;
+    width: 15%;
+    height: 40%;
+    position: absolute;
+    line-height: 420%;
+}
+div.roomed .others-part .left-player .role{
+    width: 30%;
+    height: 30%;
+    position: absolute;
+    left: 12%;
+    top: 40%;
+    background-color: transparent;
+    border-width: 0;
+    line-height: 325%;
+}
+div.roomed .others-part .right-player .role{
+    width: 30%;
+    height: 30%;
+    position: absolute;
+    right: 12%;
+    top: 40%;
+    background-color: transparent;
+    border-width: 0;
+    line-height: 325%;
+}
+
+div.roomed .lanloader{
+    background-image: url('../assets/landload_bg.png');
+    background-position: left center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+div.roomed .farmer{
+    background-image: url('../assets/landload_bg.png');
+    background-position: left center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+div.roomed .others-part .left-player .timmer{
+    left: 65%;
+    top: 50%;
+}
+div.roomed .others-part .timmer{
+    width: 16%;
+    height: 32%;
+    position: absolute;
+    background-color: transparent;
+    border: 1px solid #ccc;
+}
+div.roomed .others-part .right-player .timmer{
+    right: 65%;
+    top: 50%;
+}
+div.roomed .play-operation .card-container{
+    width: 10.6%;
+    height: 100%;
+    position: relative;
+}
+div.roomed .play-operation .card-container>.card{
+    width: 100%;
+    height: 100%;
+    text-align: left;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+div.roomed .play-operation .card-container>.card .joker{
+    width: 45%;
+    margin: 4% 0 0 10%;
+}
+div.roomed .play-operation .card-container>.card .left-top-area{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 35%;
+    display: inline-block;
+    margin-left: 1%;
+    margin-top: 3%;
+}
+div.roomed .play-operation .card-container>.card .left-top-area>.value{
+    width: 100%;
+    position: relative;
+    display: inherit;
+}
+div.roomed .play-operation .card-container>.card .left-top-area>.type{
+    width: 90%;
+    display: inherit;
+    margin-top: 5%;
+    margin-left: 5%;
+}
+div.roomed .play-operation .card-container>.card .right-bottom-area{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 35%;
+    display: inline-block;
+    margin-left: 1%;
+    margin-top: 3%;
+    transform: rotateX(180deg);
+}
+div.roomed .play-operation .card-container>.card .right-bottom-area>.value{
+    width: 100%;
+    display: inherit;
+}
+div.roomed .play-operation .card-container>.card .right-bottom-area>.type{
+    width: 90%;
+    display: inherit;
+    margin-top: 5%;
+    margin-left: 5%;
+}
+div.roomed .play-operation .card-container:not(:first-child){
+    margin-left: calc(-6%)!important;
+}
+
+div.roomed .others-part .card-prev{
+    left: 65%;
+    top: 50%;
+    text-align: left;
+}
+div.roomed .others-part .card-area{
+    width: 34%;
+    height: 23%;
+    position: absolute;
+    background-color: transparent;
+    border: 1px solid #ccc;
+}
+div.roomed .others-part .card-next{
+    right: 65%;
+    top: 50%;
+    text-align: right;
+}
+
+div.roomed .others-part .card-container{
+    width: 25%;
+    height: 100%;
+    position: relative;
+}
+div.roomed .others-part .card-container>.card{
+    width: 100%;
+    height: 100%;
+    text-align: left;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+div.roomed .others-part .card-container>.card .joker{
+    width: 50%;
+    margin: 6% 0 0 10%;
+}
+div.roomed .others-part .card-container>.card .left-top-area{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 35%;
+    display: inline-block;
+    margin-left: 1%;
+    margin-top: 3%;
+}
+div.roomed .others-part .card-container>.card .left-top-area>.value{
+    width: 100%;
+    position: relative;
+    display: inherit;
+}
+div.roomed .others-part .card-container>.card .left-top-area>.type{
+    width: 90%;
+    display: inherit;
+    margin-top: 5%;
+    margin-left: 5%;
+}
+div.roomed .others-part .card-container>.card .right-bottom-area{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 35%;
+    display: inline-block;
+    margin-left: 1%;
+    margin-top: 3%;
+    transform: rotateX(180deg);
+}
+div.roomed .others-part .card-container>.card .right-bottom-area>.value{
+    width: 100%;
+    display: inherit;
+}
+div.roomed .others-part .card-container>.card .right-bottom-area>.type{
+    width: 90%;
+    display: inherit;
+    margin-top: 5%;
+    margin-left: 5%;
+}
+div.roomed .others-part .card-container:not(:first-child){
+    margin-left: calc(-15%)!important;
+}
+.history-back{
+    position: absolute;
+    left: 1%;
+    top: 2%;
+    background: url(../assets/leave.png);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    min-width: 5%;
+    min-height: 10%;
+}
